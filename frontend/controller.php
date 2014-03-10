@@ -63,7 +63,17 @@ class ZakupkiController extends JController
 		$view->display(); // display the view
 	}
 
-	function __mailTmpl($params) {
+	function sendOrder()
+	{
+		$firstName = JRequest::getVar('firstName', '', 'POST', 'string');
+		$lastName = JRequest::getVar('lastName', '', 'POST', 'string');
+		$client_email = JRequest::getVar('email', '', 'POST', 'string');
+		$phone = JRequest::getVar('phone', '', 'POST', 'string');
+		$comment = JRequest::getVar('comment', '', 'POST', 'string');
+		$geo = JRequest::getVar('geo', '', 'POST', 'string', JREQUEST_ALLOWRAW);
+		$okdp = JRequest::getVar('okdp', '', 'POST', 'string', JREQUEST_ALLOWRAW);
+		$price = JRequest::getVar('price', '', 'POST', 'string');
+
 		$string_body = '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -103,9 +113,9 @@ class ZakupkiController extends JController
 
 		<table cellpadding="0" cellspacing="0" border="0" align="center">
 			<tr>
-				<td width="600" valign="top">
-				'. $params['header'] .'
-				</td>
+				<td width="200" valign="top"></td>
+				<td width="200" valign="top"></td>
+				<td width="200" valign="top"></td>
 			</tr>
 		</table>
 
@@ -116,27 +126,27 @@ class ZakupkiController extends JController
 		<table cellpadding="7" cellspacing="0" border="0" align="center">
 			<tr>
 				<td width="200" valign="top"><b>Имя: </b></td>
-				<td width="200" valign="top">'. $params['firstName'] .'</td>
+				<td width="200" valign="top">'. $firstName .'</td>
 			</tr>
 			<tr>
 				<td width="200" valign="top"><b>Фамилия: </b></td>
-				<td width="200" valign="top">'. $params['lastName'] .'</td>
+				<td width="200" valign="top">'. $lastName .'</td>
 			</tr>
 			<tr>
 				<td width="200" valign="top"><b>Email: </b></td>
-				<td width="200" valign="top">'. $params['client_email'] .'</td>
+				<td width="200" valign="top">'. $client_email .'</td>
 			</tr>
 			<tr>
 				<td width="200" valign="top"><b>Телефон: </b></td>
-				<td width="200" valign="top"><span class="mobile_link">'. $params['phone'] .'</span></td>
+				<td width="200" valign="top"><span class="mobile_link">'. $phone .'</span></td>
 			</tr>
 			<tr>
 				<td width="200" valign="top"><b>Комментарий к заявке: </b></td>
-				<td width="200" valign="top">'. $params['comment'] .'</td>
+				<td width="200" valign="top">'. $comment .'</td>
 			</tr>
 			<tr>
 				<td width="200" valign="top"><b>Подписка на : </b></td>
-				<td width="200" valign="top">'. $params['price'] .' мес.</td>
+				<td width="200" valign="top">'. $price .' мес.</td>
 			</tr>
 		</table>
 		</td>
@@ -150,7 +160,7 @@ class ZakupkiController extends JController
 
 	<tr>
 		<td>
-			'. $params['geo'] .'
+			'. $geo .'
 		</td>
 	</tr>
 
@@ -162,7 +172,7 @@ class ZakupkiController extends JController
 
 	<tr>
 		<td>
-			'. $params['okdp'] .'
+			'. $okdp .'
 		</td>
 	</tr>
 
@@ -188,32 +198,21 @@ class ZakupkiController extends JController
 </body>
 </html>
 ';
-		return $string_body;
-	}
 
-	function sendOrder()
-	{
 
-			$firstName = JRequest::getVar('firstName', '', 'POST', 'string');
-			$lastName = JRequest::getVar('lastName', '', 'POST', 'string');
-			$client_email = JRequest::getVar('email', '', 'POST', 'string');
-			$phone = JRequest::getVar('phone', '', 'POST', 'string');
-			$comment = JRequest::getVar('comment', '', 'POST', 'string');
-			$geo = JRequest::getVar('geo', '', 'POST', 'string', JREQUEST_ALLOWRAW);
-			$okdp = JRequest::getVar('okdp', '', 'POST', 'string', JREQUEST_ALLOWRAW);
-			$price = JRequest::getVar('price', '', 'POST', 'string');
-			$price = ($price === 'test')? 'Тест 1': $price;
 
-		$params = array (
-			'firstName' => $firstName,
-			'lastName' => $lastName ,
-			'client_email' => $client_email,
-			'phone' => $phone,
-			'comment' => $comment,
-			'geo' => $geo,
-			'okdp' => $okdp,
-			'price' => $price
-		);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -236,10 +235,6 @@ class ZakupkiController extends JController
 		$mailer = JFactory::getMailer();
 		//Указываем что письмо будет в формате HTML
 		$mailer->IsHTML( true );
-
-
-		// Отправка хозяевам
-		// ---------------
 		//Указываем отправителя письма
 		$mailer->setSender( array( $config->get( 'config.mailfrom' ), $config->get( 'config.fromname' ) ) );
 		$mailer->setSubject('Заявка для АС «Мониторинг торговых закупок»');
@@ -249,28 +244,12 @@ class ZakupkiController extends JController
 		    // $mailer->addRecipient( $email );
 		    $mailer->addBCC( $email );
 		}
-
-		$params['header'] = 'Заявка для АС «Мониторинг торговых закупок»';
-		//Добавляем текст письма
-		$mailer->setBody( $this->__mailTmpl($params));
-		//Отправляем письмо
-		$mailer->send();
-
-
-		$mailer->ClearAllRecipients();
-
-		// Отправка гостю
-		// --------------
-		//Указываем отправителя письма
-		$mailer->setSender( array( $config->get( 'config.mailfrom' ), $config->get( 'config.fromname' ) ) );
-		$mailer->setSubject('Заявка для АС «Мониторинг торговых закупок»');
-		// Добавляем получателя
 		$mailer->addBCC( $client_email );
-		$params['header'] = '<h2>Вы получили это письмо от компании РОС-ЭЛКОМ.</h2><h4>Спасибо за обращение.</h4>';
 		//Добавляем текст письма
-		$mailer->setBody( $this->__mailTmpl($params));
+		$mailer->setBody( $string_body);
 		//Отправляем письмо
 		$mailer->send();
+
 
 
 		$data = array (

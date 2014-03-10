@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/2.5/component-install.dtd">
-<install type="component" version="2.5.0">
-    <name>zakupki</name>
+<extension type="component" version="2.5.0" method="install">
+
+    <name>COM_ZAKUPKI</name>
     <creationDate>November 2013 г.</creationDate>
     <author>Vasily Asakasinsky</author>
     <authorEmail>asakasinsky@gmail.com</authorEmail>
     <authorUrl>asakasinsky.ru</authorUrl>
     <license>MIT</license>
     <version>1.0</version>
-    <description><![CDATA[Заявки для АС «Мониторинг торговых закупок»]]></description>
+    <description>COM_ZAKUPKI_XML_DESCRIPTION</description>
 
     <install folder="backend">
         <sql>
@@ -40,7 +40,7 @@
 
     <!-- Администрирование -->
     <administration>
-        <menu img="../media/com_zakupki/images/hello-16x16.png"><![CDATA[Заявки для АС «Мониторинг торговых закупок»]]></menu>
+        <menu img="../media/com_zakupki/images/hello-16x16.png">COM_ZAKUPKI_XML_DESCRIPTION</menu>
         <files folder="backend">
             <filename>controller.php</filename>
             <filename>index.html</filename>
@@ -49,5 +49,11 @@
             <folder>sql</folder>
             <folder>views</folder>
         </files>
+        <languages folder="backend">
+            <language tag="en-GB">language/en-GB/en-GB.com_zakupki.ini</language>
+            <language tag="en-GB">language/en-GB/en-GB.com_zakupki.sys.ini</language>
+            <language tag="ru-RU">language/ru-RU/ru-RU.com_zakupki.ini</language>
+            <language tag="ru-RU">language/ru-RU/ru-RU.com_zakupki.sys.ini</language>
+        </languages>
     </administration>
-</install>
+</extension>

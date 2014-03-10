@@ -1,7 +1,7 @@
 .com-zakupki {
     display: block;
     position: relative;
-    width: 660px;
+    width: 590px;
     overflow: hidden;
     clear: both;
     font-size: 1px;
@@ -16,10 +16,9 @@
   overflow: hidden;
   font-family: sans-serif;
   font-size: 16px;
-  /*color: #353535;*/
-  background: #DDF7F7 /*url('./images/735863.png') top left repeat*/;
-  border-radius: 7px;
-  border: 1px solid #99DDE0;
+  color: #353535;
+  background: url('./images/735863.png') top left repeat;
+
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
@@ -35,7 +34,7 @@
 }
 
 .okdp-wrapper hr {
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 }
 
 form.okdp-form {
@@ -51,8 +50,8 @@ form.okdp-form {
   margin: 10px;
   margin-left: 0;
   font-size: 12px;
-  background: #AFE9EA;
-  /*background: url('./images/735864.png');*/
+  background: #fafafa;
+  background: url('./images/735864.png');
   border: 0;
   border-radius: 4px;
 }
@@ -66,8 +65,8 @@ form.okdp-form {
   margin: 10px;
   margin-right: 0;
   font-size: 12px;
-  background: #AFE9EA;
-  /*background: url('./images/735864.png');*/
+  background: #fafafa;
+  background: url('./images/735864.png');
   border: 0;
   border-radius: 4px;
 }
@@ -79,9 +78,9 @@ form.okdp-form {
   margin-bottom: 1em;
   font-size: 1em;
   font-style: oblique;
-  color: #11616A;
+  color: #999;
   text-align: right;
-  /*text-shadow: 1px 0 1px #bbb;*/
+  text-shadow: 1px 0 1px #bbb;
   border: 0;
 }
 
@@ -249,7 +248,7 @@ form.okdp-form {
 }
 
 .okdp-form__field--wrapper label.on {
-  color: #11616A;
+  color: #4481C4;
 }
 
 .okdp-form__field--wrapper label.show {
@@ -273,10 +272,10 @@ body {
   height: 1em;
   padding: 0.2em;
   font-size: 1em;
-  /*color: #666;*/
+  color: #666;
   text-align: center;
   background: #fff;
-  border: 2px solid #11616A;
+  border: 2px solid #666;
   border-radius: 999px;
   behavior: url(./PIE.htc);
 }
@@ -484,3 +483,5 @@ body {
 .okdp__price-item_active .okdp__price-label {
   background-color: #FFF;
 }
+
+
