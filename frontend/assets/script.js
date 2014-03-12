@@ -3,14 +3,14 @@ var currentSelectedNode = 0;
 var onClass = "on";
 var showClass = "show";
 
-$(function () {
+jQuery(function () {
 
 // Price block
-$('.okdp__price input:radio[name="price"]').change(
+jQuery('.okdp__price input:radio[name="price"]').change(
 function(){
-    if ($(this).is(':checked')) {
-      $('.okdp__price input:radio[name="price"]').closest('.okdp__price-group-item').removeClass('okdp__price-item_active');
-      $(this).closest('.okdp__price-group-item').addClass('okdp__price-item_active');
+    if (jQuery(this).is(':checked')) {
+      jQuery('.okdp__price input:radio[name="price"]').closest('.okdp__price-group-item').removeClass('okdp__price-item_active');
+      jQuery(this).closest('.okdp__price-group-item').addClass('okdp__price-item_active');
     }
 });
 
@@ -19,25 +19,25 @@ function(){
 
 // Contact form
 
-    $("#__contactForm input").bind("checkval",function(){
-        var label = $(this).siblings("label");
+    jQuery("#__contactForm input").bind("checkval",function(){
+        var label = jQuery(this).siblings("label");
         if(this.value !== ""){
             label.addClass(showClass);
         } else {
             label.removeClass(showClass);
         }
     }).on("keyup",function(){
-        $(this).trigger("checkval");
+        jQuery(this).trigger("checkval");
     }).on("focus",function(){
-        $(this).siblings("label").addClass(onClass);
+        jQuery(this).siblings("label").addClass(onClass);
     }).on("blur",function(){
-        $(this).siblings("label").removeClass(onClass);
+        jQuery(this).siblings("label").removeClass(onClass);
     }).trigger("checkval");
 
-$('#__contactForm').isHappy({
+jQuery('#__contactForm').isHappy({
     fields: {
       // reference the field you're talking about, probably by `id`
-      // but you could certainly do $('[name=name]') as well.
+      // but you could certainly do jQuery('[name=name]') as well.
       '#firstName': {
         required: true,
         message: 'Введите тут свое емя'
@@ -61,10 +61,10 @@ $('#__contactForm').isHappy({
   });
 
 
-    $('#orderSubmit').click(function(){
+    jQuery('#orderSubmit').click(function(){
         var check = true;
-        $('#__contactForm input').each(function(){
-            if($(this).val()==='') {
+        jQuery('#__contactForm input').each(function(){
+            if(jQuery(this).val()==='') {
                check=false;
             }
         });
@@ -82,7 +82,7 @@ $('#__contactForm').isHappy({
 
 // Init OKDP tree
 
-   $("#tree").dynatree({
+   jQuery("#tree").dynatree({
         selectMode:3,
         clickFolderMode:1,
         icon:false,
@@ -139,7 +139,7 @@ function isNumber(n){
 }
 
 function canselSelect() {
-    $("#tree").dynatree("getRoot").visit(function(node){
+    jQuery("#tree").dynatree("getRoot").visit(function(node){
         node.select(false);
     });
     return false;
@@ -158,7 +158,7 @@ function getOkdp() {
         '<tr><th width="100" valign="top">Код ОКДП</th><th width="400" valign="top">Наименование</th></tr>'
     ];
     var okdpList = [];
-    var rootNode =  $("#tree").dynatree("getRoot");
+    var rootNode =  jQuery("#tree").dynatree("getRoot");
     var selRootNodes = rootNode.tree.getSelectedNodes(true);
     console.log(rootNode.tree.getSelectedNodes(true));
     var className;
@@ -173,7 +173,7 @@ function getOkdp() {
 
 var $districts;
 function selectDistrict () {
-    $districts = $("#districts");
+    $districts = jQuery("#districts");
     $districts.change(function(){
         $subjects.trigger("chosen:updated");
         $locality.trigger("chosen:updated");
@@ -183,7 +183,7 @@ function selectDistrict () {
 
 var $subjects;
 function selectSubject () {
-    $subjects = $("#subjects");
+    $subjects = jQuery("#subjects");
     $subjects.on('chosen:updated', function(){
         console.log('#subjects will be update')
         var keyList = $districts.val();
@@ -203,7 +203,7 @@ function selectSubject () {
 
 var $locality;
 function selectLocality () {
-    $locality = $("#locality");
+    $locality = jQuery("#locality");
     $locality.on('chosen:updated', function(){
         console.log('#locality will be update')
         var keyList = $subjects.val();
@@ -236,7 +236,7 @@ function json2selectChosen($jobj, jsonData) {
 function getByParent(key, keyList, data) {
     var result = [];
     for (var i = 0; i < data.length; i++) {
-        if($.inArray(data[i][key], keyList)>=0) {
+        if(jQuery.inArray(data[i][key], keyList)>=0) {
             result.push(data[i]);
         }
     }
@@ -258,10 +258,10 @@ function getGeo() {
     if(subjectsList) {
         for (var i = 0; i < subjectsData.length; i++) {
             console.log(subjectsData[i])
-            if($.inArray(subjectsData[i].aoguid, subjectsList)>=0) {
+            if(jQuery.inArray(subjectsData[i].aoguid, subjectsList)>=0) {
                 result.push('<tr class="odd"><td width="100" valign="top">' + subjectsData[i].okato + '</td><td width="300" valign="top">' + subjectsData[i].name +'</td></tr>');
                 for (var ii = 0; ii < localityData.length; ii++) {
-                    if($.inArray(localityData[ii]['aoguid'], localityList)>=0 && localityData[ii]['parentguid'] === subjectsData[i].aoguid) {
+                    if(jQuery.inArray(localityData[ii]['aoguid'], localityList)>=0 && localityData[ii]['parentguid'] === subjectsData[i].aoguid) {
                         result.push('<tr><td width="100" valign="top">' + localityData[ii].okato + '</td><td width="300" valign="top">' + localityData[ii].name +'</td></tr>');
                     }
                 }
@@ -269,7 +269,7 @@ function getGeo() {
         }
     } else if (localityList) {
         for (var ii = 0; ii < localityData.length; ii++) {
-            if($.inArray(localityData[ii]['aoguid'], localityList)>=0) {
+            if(jQuery.inArray(localityData[ii]['aoguid'], localityList)>=0) {
                 result.push('<tr><td width="100" valign="top">' + localityData[ii].okato + '</td><td width="300" valign="top">' + localityData[ii].name +'</td></tr>');
             }
         }
@@ -283,18 +283,18 @@ function getGeo() {
 
 function getContacts() {
     var data = {
-        firstName: $("#firstName").val(),
-        lastName: $("#lastName").val(),
-        email: $("#email").val(),
-        phone: $("#phone").val(),
-        comment: $("#comment").val()
+        firstName: jQuery("#firstName").val(),
+        lastName: jQuery("#lastName").val(),
+        email: jQuery("#email").val(),
+        phone: jQuery("#phone").val(),
+        comment: jQuery("#comment").val()
     };
 
     return data;
 }
 
 function getSelectedPrice() {
-    return $('input:radio[name=price]:checked').val();
+    return jQuery('input:radio[name=price]:checked').val();
 }
 
 function createOrder() {
@@ -302,9 +302,9 @@ function createOrder() {
     data.price = getSelectedPrice();
     data.geo = getGeo();
     data.okdp = getOkdp();
-    console.log(' $.ajax');
+    console.log(' jQuery.ajax');
 
-    $.ajax({
+    jQuery.ajax({
         type: 'POST',
         url: '/index.php?option=com_zakupki&task=sendOrder"',
         data: data,
